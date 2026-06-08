@@ -1,0 +1,10 @@
+{
+  "name": "echoes-of-the-lost",
+  "version": "0.1.0",
+  "description": "Echoes of the Lost - Action-adventure 3D game",
+  "dependencies": [
+    "bullet3",
+    "nlohmann-json",
+    "vulkan"
+  ]
+}

@@ -1,0 +1,27 @@
+# Build
+build/
+out/
+cmake-build-*/
+x64/
+Debug/
+Release/
+staging/
+Output/
+
+# IDE
+.vs/
+.vscode/
+*.user
+*.suo
+*.sln
+*.vcxproj*
+
+# vcpkg
+vcpkg_installed/
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log

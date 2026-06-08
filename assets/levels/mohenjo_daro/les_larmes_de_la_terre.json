@@ -1,36 +1,21 @@
 {
-  "id": "les_larmes_de_la_terre",
-  "title": "Les Larmes de la Terre",
-  "location": "Mohenjo-Daro, Pakistan",
-  "estimated_duration_minutes": 35,
-  "objectives": [
-    {
-      "id": "hydraulic_puzzle",
-      "description": "Restore the flooded temple channels",
-      "type": "puzzle"
-    },
-    {
-      "id": "cartel_patrol",
-      "description": "Survive the first Cartel patrol",
-      "type": "combat"
-    },
-    {
-      "id": "mirror_throne",
-      "description": "Align the throne room mirrors",
-      "type": "puzzle"
-    },
-    {
-      "id": "crystal_retrieve",
-      "description": "Recover the First Echo Crystal",
-      "type": "boss"
-    }
-  ],
-  "sequences": [
-    "canal_exploration",
-    "cartel_ambush",
-    "throne_mirror_puzzle",
-    "scripted_collapse_zipline",
-    "elite_soldier_boss",
-    "father_journal_cinematic"
-  ]
+    "title": "Les Larmes de la Terre",
+    "objectives": [
+        {
+            "id": "hydraulic_puzzle",
+            "description": "Restore the flooded temple channels"
+        },
+        {
+            "id": "cartel_patrol",
+            "description": "Survive the first Cartel patrol"
+        },
+        {
+            "id": "mirror_throne",
+            "description": "Align the throne room mirrors"
+        },
+        {
+            "id": "crystal_retrieve",
+            "description": "Recover the First Echo Crystal"
+        }
+    ]
 }

@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    env:
+      VCPKG_ROOT: ${{ github.workspace }}\vcpkg
 
     steps:
       - name: Checkout code
@@ -21,12 +23,16 @@ jobs:
         with:
           arch: x64
 
-      - name: Setup vcpkg
-        uses: lukka/run-vcpkg@v11
-        with:
-          vcpkgGitCommitId: 'c8696863d371ab7f137759bc4410cb45a15d860d'
-          runVcpkgInstall: true
-          vcpkgJsonGlob: 'vcpkg.json'
+      - name: Clone vcpkg
+        run: git clone --depth 1 https://github.com/microsoft/vcpkg.git vcpkg
+
+      - name: Bootstrap vcpkg
+        shell: pwsh
+        run: .\vcpkg\bootstrap-vcpkg.bat
+
+      - name: Install vcpkg dependencies
+        shell: pwsh
+        run: .\vcpkg\vcpkg install --triplet x64-windows
 
       - name: Configure CMake
         run: |
@@ -46,15 +52,16 @@ jobs:
           if (Test-Path "build/vcpkg_installed/x64-windows/bin") {
             Copy-Item build/vcpkg_installed/x64-windows/bin/*.dll staging/ -ErrorAction SilentlyContinue
           }
-          if (Test-Path "$env:VCPKG_INSTALLATION_ROOT/installed/x64-windows/bin") {
-            Copy-Item "$env:VCPKG_INSTALLATION_ROOT/installed/x64-windows/bin/*.dll" staging/ -ErrorAction SilentlyContinue
+          if (Test-Path "$env:VCPKG_ROOT/installed/x64-windows/bin") {
+            Copy-Item "$env:VCPKG_ROOT/installed/x64-windows/bin/*.dll" staging/ -ErrorAction SilentlyContinue
           }
 
-      - name: Create installer (Inno Setup)
-        uses: Minionguyjpro/Inno-Setup-Action@v1.2.1
-        with:
-          path: ./installer/EchoesOfTheLost.iss
-          options: /O+
+      - name: Install Inno Setup
+        run: choco install innosetup --no-progress -y
+
+      - name: Create installer
+        run: |
+          iscc.exe installer/EchoesOfTheLost.iss /OOutput
 
       - name: Upload installer as artifact
         uses: actions/upload-artifact@v4

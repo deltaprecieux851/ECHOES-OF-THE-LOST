@@ -34,7 +34,7 @@ struct alignas(256) SceneConstants {
     float color[4];
 };
 
-struct Renderer::Dx12State {
+struct echoes::platform::Renderer::Dx12State {
     ComPtr<IDXGIFactory6> factory;
     ComPtr<ID3D12Device> device;
     ComPtr<ID3D12CommandQueue> commandQueue;

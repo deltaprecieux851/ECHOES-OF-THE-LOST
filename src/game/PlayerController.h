@@ -49,7 +49,8 @@ private:
     void UpdateMovement(float deltaTime, const LevelManager& level);
     void UpdateClimbing(float deltaTime);
     void UpdateGrappling(float deltaTime);
-    void UpdateSwimming(float deltaTime, const LevelManager& level);`n    void Jump();
+    void UpdateSwimming(float deltaTime, const LevelManager& level);
+    void Jump();
 
     EchoSystem& echoSystem_;
     PlayerState state_{PlayerState::Ground};

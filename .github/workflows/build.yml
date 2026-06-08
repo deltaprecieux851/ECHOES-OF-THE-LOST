@@ -49,10 +49,14 @@ jobs:
             -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake"
 
       - name: Build
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: cmake --build build --config Release --target EchoesOfTheLost --parallel
 
       - name: Collect runtime files
         shell: pwsh
+        env:
+          VCPKG_ROOT: ${{ github.workspace }}\vcpkg
         run: |
           New-Item -ItemType Directory -Force -Path staging | Out-Null
           Copy-Item build/Release/EchoesOfTheLost.exe staging/
@@ -63,9 +67,9 @@ jobs:
           if (Test-Path "$env:VCPKG_ROOT/installed/x64-windows/bin") {
             Copy-Item "$env:VCPKG_ROOT/installed/x64-windows/bin/*.dll" staging/ -ErrorAction SilentlyContinue
           }
-          $vcRedist = Join-Path $Env:ProgramFiles(x86) 'Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC'
+          $vcRedist = Join-Path ${Env:ProgramFiles(x86)} 'Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC'
           if (-Not (Test-Path $vcRedist)) {
-            $vcRedist = Join-Path $Env:ProgramFiles(x86) 'Microsoft Visual Studio\2022\Community\VC\Redist\MSVC'
+            $vcRedist = Join-Path ${Env:ProgramFiles(x86)} 'Microsoft Visual Studio\2022\Community\VC\Redist\MSVC'
           }
           if (Test-Path $vcRedist) {
             Get-ChildItem -Path $vcRedist -Recurse -Filter '*.dll' | ForEach-Object {

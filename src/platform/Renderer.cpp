@@ -17,24 +17,10 @@ using Microsoft::WRL::ComPtr;
 
 namespace echoes::platform {
 
-namespace {
-
 constexpr UINT kFrameCount = 2;
 constexpr UINT kCubeIndexCount = 36;
 
-struct Vertex {
-    float position[3];
-    float normal[3];
-    float color[4];
-};
-
-struct alignas(256) SceneConstants {
-    float viewProjection[16];
-    float world[16];
-    float color[4];
-};
-
-struct echoes::platform::Renderer::Dx12State {
+struct Renderer::Dx12State {
     ComPtr<IDXGIFactory6> factory;
     ComPtr<ID3D12Device> device;
     ComPtr<ID3D12CommandQueue> commandQueue;
@@ -56,6 +42,20 @@ struct echoes::platform::Renderer::Dx12State {
     UINT64 fenceValues[kFrameCount]{};
     UINT rtvDescriptorSize{0};
     UINT frameIndex{0};
+};
+
+namespace {
+
+struct Vertex {
+    float position[3];
+    float normal[3];
+    float color[4];
+};
+
+struct alignas(256) SceneConstants {
+    float viewProjection[16];
+    float world[16];
+    float color[4];
 };
 
 std::wstring GetShaderPath() {

@@ -63,6 +63,18 @@ jobs:
           if (Test-Path "$env:VCPKG_ROOT/installed/x64-windows/bin") {
             Copy-Item "$env:VCPKG_ROOT/installed/x64-windows/bin/*.dll" staging/ -ErrorAction SilentlyContinue
           }
+          $vcRedist = Join-Path $Env:ProgramFiles(x86) 'Microsoft Visual Studio\2022\Enterprise\VC\Redist\MSVC'
+          if (-Not (Test-Path $vcRedist)) {
+            $vcRedist = Join-Path $Env:ProgramFiles(x86) 'Microsoft Visual Studio\2022\Community\VC\Redist\MSVC'
+          }
+          if (Test-Path $vcRedist) {
+            Get-ChildItem -Path $vcRedist -Recurse -Filter '*.dll' | ForEach-Object {
+              Copy-Item $_.FullName -Destination staging -Force
+            }
+          }
+          if (Test-Path "$env:SystemRoot\System32\d3dcompiler_47.dll") {
+            Copy-Item "$env:SystemRoot\System32\d3dcompiler_47.dll" staging/ -Force -ErrorAction SilentlyContinue
+          }
 
       - name: Install Inno Setup
         run: choco install innosetup --no-progress -y

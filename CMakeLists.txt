@@ -31,6 +31,10 @@ set(EOL_SOURCES
     src/networking/NetworkStub.cpp
 )
 
+if(WIN32)
+    list(APPEND EOL_SOURCES resources/EchoesOfTheLost.rc)
+endif()
+
 add_executable(EchoesOfTheLost WIN32 ${EOL_SOURCES})
 
 target_include_directories(EchoesOfTheLost PRIVATE

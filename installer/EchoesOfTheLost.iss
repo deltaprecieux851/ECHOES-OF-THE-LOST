@@ -9,6 +9,7 @@ Compression=lzma2
 SolidCompression=yes
 OutputDir=..\Output
 OutputBaseFilename=EchoesOfTheLost_Setup
+SetupIconFile=..\resources\EchoesOfTheLost.ico
 ArchitecturesInstallIn64BitMode=x64
 PrivilegesRequired=admin
 
